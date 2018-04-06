@@ -1,0 +1,35 @@
+﻿  Server.cpp
+  servidorENet.cpp
+  serializable.cpp
+  paquete.cpp
+  Manager.cpp
+  conexionENet.cpp
+  clienteENet.cpp
+  buffer.cpp
+  Generando código...
+clienteENet.obj : error LNK2019: símbolo externo _enet_initialize sin resolver al que se hace referencia en la función "public: virtual bool __thiscall Net::CClienteENet::init(unsigned int,unsigned int,unsigned int)" (?init@CClienteENet@Net@@UAE_NIII@Z)
+servidorENet.obj : error LNK2001: símbolo externo _enet_initialize sin resolver
+clienteENet.obj : error LNK2019: símbolo externo _enet_deinitialize sin resolver al que se hace referencia en la función "public: virtual void __thiscall Net::CClienteENet::deInit(void)" (?deInit@CClienteENet@Net@@UAEXXZ)
+servidorENet.obj : error LNK2001: símbolo externo _enet_deinitialize sin resolver
+clienteENet.obj : error LNK2019: símbolo externo _enet_address_set_host sin resolver al que se hace referencia en la función "public: virtual class Net::CConexion * __thiscall Net::CClienteENet::connect(char *,int,int,unsigned int)" (?connect@CClienteENet@Net@@UAEPAVCConexion@2@PADHHI@Z)
+clienteENet.obj : error LNK2019: símbolo externo _enet_packet_create sin resolver al que se hace referencia en la función "public: virtual void __thiscall Net::CClienteENet::sendData(class Net::CConexion *,void *,int,int,bool)" (?sendData@CClienteENet@Net@@UAEXPAVCConexion@2@PAXHH_N@Z)
+servidorENet.obj : error LNK2001: símbolo externo _enet_packet_create sin resolver
+clienteENet.obj : error LNK2019: símbolo externo _enet_packet_destroy sin resolver al que se hace referencia en la función "public: virtual void __thiscall Net::CClienteENet::disconnect(class Net::CConexion *)" (?disconnect@CClienteENet@Net@@UAEXPAVCConexion@2@@Z)
+servidorENet.obj : error LNK2001: símbolo externo _enet_packet_destroy sin resolver
+clienteENet.obj : error LNK2019: símbolo externo _enet_host_create sin resolver al que se hace referencia en la función "public: virtual bool __thiscall Net::CClienteENet::init(unsigned int,unsigned int,unsigned int)" (?init@CClienteENet@Net@@UAE_NIII@Z)
+servidorENet.obj : error LNK2001: símbolo externo _enet_host_create sin resolver
+clienteENet.obj : error LNK2019: símbolo externo _enet_host_destroy sin resolver al que se hace referencia en la función "public: virtual void __thiscall Net::CClienteENet::deInit(void)" (?deInit@CClienteENet@Net@@UAEXXZ)
+servidorENet.obj : error LNK2001: símbolo externo _enet_host_destroy sin resolver
+clienteENet.obj : error LNK2019: símbolo externo _enet_host_connect sin resolver al que se hace referencia en la función "public: virtual class Net::CConexion * __thiscall Net::CClienteENet::connect(char *,int,int,unsigned int)" (?connect@CClienteENet@Net@@UAEPAVCConexion@2@PADHHI@Z)
+clienteENet.obj : error LNK2019: símbolo externo _enet_host_service sin resolver al que se hace referencia en la función "public: virtual class Net::CConexion * __thiscall Net::CClienteENet::connect(char *,int,int,unsigned int)" (?connect@CClienteENet@Net@@UAEPAVCConexion@2@PADHHI@Z)
+servidorENet.obj : error LNK2001: símbolo externo _enet_host_service sin resolver
+clienteENet.obj : error LNK2019: símbolo externo _enet_host_flush sin resolver al que se hace referencia en la función "public: virtual class Net::CConexion * __thiscall Net::CClienteENet::connect(char *,int,int,unsigned int)" (?connect@CClienteENet@Net@@UAEPAVCConexion@2@PADHHI@Z)
+servidorENet.obj : error LNK2001: símbolo externo _enet_host_flush sin resolver
+clienteENet.obj : error LNK2019: símbolo externo _enet_peer_send sin resolver al que se hace referencia en la función "public: virtual void __thiscall Net::CClienteENet::sendData(class Net::CConexion *,void *,int,int,bool)" (?sendData@CClienteENet@Net@@UAEXPAVCConexion@2@PAXHH_N@Z)
+servidorENet.obj : error LNK2001: símbolo externo _enet_peer_send sin resolver
+clienteENet.obj : error LNK2019: símbolo externo _enet_peer_reset sin resolver al que se hace referencia en la función "public: virtual class Net::CConexion * __thiscall Net::CClienteENet::connect(char *,int,int,unsigned int)" (?connect@CClienteENet@Net@@UAEPAVCConexion@2@PADHHI@Z)
+servidorENet.obj : error LNK2001: símbolo externo _enet_peer_reset sin resolver
+clienteENet.obj : error LNK2019: símbolo externo _enet_peer_disconnect sin resolver al que se hace referencia en la función "public: virtual void __thiscall Net::CClienteENet::disconnect(class Net::CConexion *)" (?disconnect@CClienteENet@Net@@UAEXPAVCConexion@2@@Z)
+servidorENet.obj : error LNK2001: símbolo externo _enet_peer_disconnect sin resolver
+..\ThirdParty\enet\lib\enet.x64.lib : warning LNK4272: el tipo de máquina de biblioteca 'x64' está en conflicto con el tipo de máquina de destino 'x86'
+D:\Documents\Unreal Projects\Cars\Debug\Server.exe : fatal error LNK1120: 13 externos sin resolver

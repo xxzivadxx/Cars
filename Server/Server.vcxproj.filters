@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Source\Cars">
+      <UniqueIdentifier>{184dc107-9df6-4bf7-ba5b-e0d888c1e6e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Cars\Net">
+      <UniqueIdentifier>{bfb474ad-251d-4219-8ce3-4343cf2c0c27}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Source\Cars\Net\cliente.h">
+      <Filter>Source\Cars\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Cars\Net\clienteENet.h">
+      <Filter>Source\Cars\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Cars\Net\conexion.h">
+      <Filter>Source\Cars\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Cars\Net\conexionENet.h">
+      <Filter>Source\Cars\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Cars\Net\factoriared.h">
+      <Filter>Source\Cars\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Cars\Net\factoriaredenet.h">
+      <Filter>Source\Cars\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Cars\Net\Manager.h">
+      <Filter>Source\Cars\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Cars\Net\paquete.h">
+      <Filter>Source\Cars\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Cars\Net\serializable.h">
+      <Filter>Source\Cars\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Cars\Net\servidor.h">
+      <Filter>Source\Cars\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Cars\Net\servidorENet.h">
+      <Filter>Source\Cars\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Cars\Net\buffer.h">
+      <Filter>Source\Cars\Net</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Source\Cars\Net\clienteENet.cpp">
+      <Filter>Source\Cars\Net</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Cars\Net\conexionENet.cpp">
+      <Filter>Source\Cars\Net</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Cars\Net\Manager.cpp">
+      <Filter>Source\Cars\Net</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Cars\Net\paquete.cpp">
+      <Filter>Source\Cars\Net</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Cars\Net\serializable.cpp">
+      <Filter>Source\Cars\Net</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Cars\Net\servidorENet.cpp">
+      <Filter>Source\Cars\Net</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Cars\Net\buffer.cpp">
+      <Filter>Source\Cars\Net</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Cars\Server.cpp">
+      <Filter>Source\Cars</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

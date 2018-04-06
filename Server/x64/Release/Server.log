@@ -1,0 +1,47 @@
+﻿  buffer.cpp
+  clienteENet.cpp
+  conexionENet.cpp
+  Manager.cpp
+..\Source\Cars\Net\Manager.cpp(111): warning C4267: 'argumento': conversión de 'size_t' a 'int'; posible pérdida de datos
+  paquete.cpp
+  serializable.cpp
+..\Source\Cars\Net\serializable.cpp(11): warning C4267: '=': conversión de 'size_t' a 'int'; posible pérdida de datos
+  servidorENet.cpp
+  Server.cpp
+LINK : warning LNK4098: la biblioteca predeterminada'LIBCMTD' entra en conflicto con otras bibliotecas; use la biblioteca /NODEFAULTLIB:biblioteca
+enet.x64.lib(win32.obj) : error LNK2001: símbolo externo __imp_timeGetTime sin resolver
+enet.x64.lib(win32.obj) : error LNK2001: símbolo externo __imp_timeBeginPeriod sin resolver
+enet.x64.lib(win32.obj) : error LNK2001: símbolo externo __imp_timeEndPeriod sin resolver
+enet.x64.lib(win32.obj) : error LNK2001: símbolo externo __WSAFDIsSet sin resolver
+enet.x64.lib(win32.obj) : error LNK2001: símbolo externo __imp_accept sin resolver
+enet.x64.lib(win32.obj) : error LNK2001: símbolo externo __imp_bind sin resolver
+enet.x64.lib(win32.obj) : error LNK2001: símbolo externo __imp_closesocket sin resolver
+enet.x64.lib(win32.obj) : error LNK2001: símbolo externo __imp_connect sin resolver
+enet.x64.lib(win32.obj) : error LNK2001: símbolo externo __imp_ioctlsocket sin resolver
+enet.x64.lib(win32.obj) : error LNK2001: símbolo externo __imp_htons sin resolver
+enet.x64.lib(peer.obj) : error LNK2001: símbolo externo __imp_htons sin resolver
+enet.x64.lib(host.obj) : error LNK2001: símbolo externo __imp_htons sin resolver
+enet.x64.lib(protocol.obj) : error LNK2001: símbolo externo __imp_htons sin resolver
+enet.x64.lib(win32.obj) : error LNK2001: símbolo externo __imp_inet_addr sin resolver
+enet.x64.lib(win32.obj) : error LNK2001: símbolo externo __imp_inet_ntoa sin resolver
+enet.x64.lib(win32.obj) : error LNK2001: símbolo externo __imp_listen sin resolver
+enet.x64.lib(win32.obj) : error LNK2001: símbolo externo __imp_ntohs sin resolver
+enet.x64.lib(peer.obj) : error LNK2001: símbolo externo __imp_ntohs sin resolver
+enet.x64.lib(protocol.obj) : error LNK2001: símbolo externo __imp_ntohs sin resolver
+enet.x64.lib(win32.obj) : error LNK2001: símbolo externo __imp_select sin resolver
+enet.x64.lib(win32.obj) : error LNK2001: símbolo externo __imp_setsockopt sin resolver
+enet.x64.lib(win32.obj) : error LNK2001: símbolo externo __imp_socket sin resolver
+enet.x64.lib(win32.obj) : error LNK2001: símbolo externo __imp_gethostbyaddr sin resolver
+enet.x64.lib(win32.obj) : error LNK2001: símbolo externo __imp_gethostbyname sin resolver
+enet.x64.lib(win32.obj) : error LNK2001: símbolo externo __imp_WSAStartup sin resolver
+enet.x64.lib(win32.obj) : error LNK2001: símbolo externo __imp_WSACleanup sin resolver
+enet.x64.lib(win32.obj) : error LNK2001: símbolo externo __imp_WSAGetLastError sin resolver
+enet.x64.lib(win32.obj) : error LNK2001: símbolo externo __imp_WSARecvFrom sin resolver
+enet.x64.lib(win32.obj) : error LNK2001: símbolo externo __imp_WSASendTo sin resolver
+enet.x64.lib(peer.obj) : error LNK2001: símbolo externo __imp_htonl sin resolver
+enet.x64.lib(host.obj) : error LNK2001: símbolo externo __imp_htonl sin resolver
+enet.x64.lib(protocol.obj) : error LNK2001: símbolo externo __imp_htonl sin resolver
+enet.x64.lib(packet.obj) : error LNK2001: símbolo externo __imp_htonl sin resolver
+enet.x64.lib(peer.obj) : error LNK2001: símbolo externo __imp_ntohl sin resolver
+enet.x64.lib(protocol.obj) : error LNK2001: símbolo externo __imp_ntohl sin resolver
+D:\Documents\Unreal Projects\Cars\x64\Release\Server.exe : fatal error LNK1120: 26 externos sin resolver
