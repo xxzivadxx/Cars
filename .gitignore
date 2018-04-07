@@ -73,3 +73,12 @@ Intermediate/*
 
 # Cache files for the editor to use
 DerivedDataCache/*
+*.lastbuildstate
+*.tlog
+*.tlog
+*.log
+*.idb
+*.pdb
+*.ilk
+*.iobj
+*.ipdb
