@@ -48,6 +48,7 @@ void ACameraCtrl::CNetObserver::dataPacketReceived(Net::CPaquete* packet)
   // Creamos un buffer con los datos para leer de manera más cómoda
   Net::CBuffer data;
   data.write(packet->getData(), packet->getDataLength());
+  data.reset();
   char sInfo[128];
   data.read(sInfo, data.getSize());
   if (GEngine)
