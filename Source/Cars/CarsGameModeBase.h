@@ -12,9 +12,9 @@
 UCLASS()
 class CARS_API ACarsGameModeBase : public AGameModeBase
 {
-	GENERATED_BODY()
-	
-	
+  GENERATED_BODY()
+public:
+  virtual APawn* SpawnDefaultPawnFor_Implementation(AController* NewPlayer, AActor* StartSpot) override;
 	
 	
 };

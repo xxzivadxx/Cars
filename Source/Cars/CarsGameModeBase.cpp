@@ -2,6 +2,9 @@
 
 #include "CarsGameModeBase.h"
 
-
+APawn* ACarsGameModeBase::SpawnDefaultPawnFor_Implementation(AController* NewPlayer, AActor* StartSpot)
+{
+  return nullptr;
+}
 
 
