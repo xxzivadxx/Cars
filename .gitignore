@@ -82,3 +82,8 @@ DerivedDataCache/*
 *.ilk
 *.iobj
 *.ipdb
+*.tlog
+*.log
+*.tlog
+*.log
+*.tlog

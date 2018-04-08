@@ -115,7 +115,7 @@ namespace Net {
 
 	//---------------------------------------------------------
 
-	void CManager::tick(unsigned int msecs) 
+	void CManager::tick() 
 	{
 		_paquetes.clear();
 		Net::CManager::getSingletonPtr()->getPackets(_paquetes);

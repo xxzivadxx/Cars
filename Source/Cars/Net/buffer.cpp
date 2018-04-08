@@ -47,7 +47,7 @@ namespace Net {
 		_current = _begin;
 	}
 
-	void CBuffer::write(void* data, size_t datalength)
+	void CBuffer::write(const void* data, size_t datalength)
 	{
 		while(_size + datalength >= _maxsize)
 			realloc();

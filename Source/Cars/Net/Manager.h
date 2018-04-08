@@ -135,10 +135,8 @@ namespace Net
 		<p>
 		Será aquí donde consultaremos si han llegado mensajes y de ser así 
 		los procesaremos o delegaremos su proceso al módulo correspondiente.
-
-		@param msecs Milisegundos transcurridos desde el último tick.
 		*/
-		void tick(unsigned int msecs);
+		void tick();
 
 		/**
 		Función que sirve para enviar datos al otro lado de la conexión.

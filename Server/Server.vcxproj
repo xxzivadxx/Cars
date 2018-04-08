@@ -83,7 +83,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>..\ThirdParty\enet\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\ThirdParty\enet\include; ..\Source\Cars</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -97,7 +97,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>..\ThirdParty\enet\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\ThirdParty\enet\include; ..\Source\Cars</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -113,7 +113,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>..\ThirdParty\enet\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\ThirdParty\enet\include; ..\Source\Cars</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -131,7 +131,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>..\ThirdParty\enet\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\ThirdParty\enet\include; ..\Source\Cars</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -154,6 +154,7 @@
     <ClInclude Include="..\Source\Cars\Net\serializable.h" />
     <ClInclude Include="..\Source\Cars\Net\servidor.h" />
     <ClInclude Include="..\Source\Cars\Net\servidorENet.h" />
+    <ClInclude Include="..\Source\Cars\Server\ServerCars.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Source\Cars\Net\buffer.cpp" />
@@ -163,7 +164,8 @@
     <ClCompile Include="..\Source\Cars\Net\paquete.cpp" />
     <ClCompile Include="..\Source\Cars\Net\serializable.cpp" />
     <ClCompile Include="..\Source\Cars\Net\servidorENet.cpp" />
-    <ClCompile Include="..\Source\Cars\Server.cpp" />
+    <ClCompile Include="..\Source\Cars\Server\Main.cpp" />
+    <ClCompile Include="..\Source\Cars\Server\ServerCars.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

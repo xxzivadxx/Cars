@@ -60,7 +60,7 @@ public:
 	 * @param data son los datos a escribir
 	 * @param datalenght es el tamaño de los datos a escribir (número de bytes)
 	 */
-	void write(void* data, size_t datalength);
+	void write(const void* data, size_t datalength);
 
 	/**
 	 * Lee datos del buffer.
