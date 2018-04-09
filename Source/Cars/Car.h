@@ -27,11 +27,20 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 protected:
+  float _acel = 120.f;
+  float _drag = 50.f;
+  float _brakeAcel = 300.f;
+  float _maxVelocity = 250.f;
+
+  FVector m_vVelocity = FVector::ZeroVector;
+
   //Input variables
   FVector m_vMovementInput;
 
   //Input functions
   void Move(float AxisValue);
   void Turn(float AxisValue);
+  FVector CalculateAceleration(float DeltaTime);
+  void CalculateVelocity(FVector _vAcel, float DeltaTime);
 	
 };
