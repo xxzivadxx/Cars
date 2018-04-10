@@ -39,6 +39,14 @@ void ACameraCtrl::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
   m_pManager->tick();
+  if (m_pTarget)
+  {
+    FVector vNewPos = m_pTarget->GetActorTransform().GetTranslation();
+    vNewPos.Z = m_fMinDistance + m_pTarget->GetVelocityMagnitude() * m_fDistanceFromVelocityFactor;
+    FTransform oTransform = CameraOne->GetActorTransform();
+    oTransform.SetTranslation(vNewPos);
+    CameraOne->SetActorTransform(oTransform);
+  }
 }
 
 //--------------------------------

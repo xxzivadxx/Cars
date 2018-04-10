@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "../Net/Manager.h"
+#include "Car.h"
 #include "CameraCtrl.generated.h"
 
 UCLASS()
@@ -39,7 +40,14 @@ public:
 
 
   UPROPERTY(EditAnywhere)
-    AActor* CameraOne;
+  AActor* CameraOne;
+
+  UPROPERTY(EditAnywhere)
+  ACar* m_pTarget;
+  UPROPERTY(EditAnywhere)
+  float m_fMinDistance = 200.f;
+  UPROPERTY(EditAnywhere)
+  float m_fDistanceFromVelocityFactor = 0.6f;
 private:
   Net::CManager* m_pManager = nullptr;
   CNetObserver m_oNetObserver;

@@ -87,3 +87,5 @@ DerivedDataCache/*
 *.tlog
 *.log
 *.tlog
+*.pdb
+*.idb

@@ -26,11 +26,19 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+  float GetVelocityMagnitude() { return m_vVelocity.Size(); }
+
 protected:
-  float _acel = 120.f;
-  float _drag = 50.f;
-  float _brakeAcel = 300.f;
-  float _maxVelocity = 250.f;
+  UPROPERTY(EditAnywhere, BlueprintReadWrite)
+  float m_fAcel = 120.f;
+  UPROPERTY(EditAnywhere, BlueprintReadWrite)
+  float m_fDrag = 50.f;
+  UPROPERTY(EditAnywhere, BlueprintReadWrite)
+  float m_fBrakeAcel = 300.f;
+  UPROPERTY(EditAnywhere, BlueprintReadWrite)
+  float m_fMaxVelocity = 250.f;
+  UPROPERTY(EditAnywhere, BlueprintReadWrite)
+  float m_fRotationFactor = 2.f;
 
   FVector m_vVelocity = FVector::ZeroVector;
 

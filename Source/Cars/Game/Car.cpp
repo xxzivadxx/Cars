@@ -40,13 +40,13 @@ FVector ACar::CalculateAceleration(float DeltaTime)
 {
   FVector acel;
   if (m_vMovementInput.Y > 0.f)
-    acel = _acel * m_vMovementInput.Y * GetActorForwardVector();
+    acel = m_fAcel * m_vMovementInput.Y * GetActorForwardVector();
   else if (m_vMovementInput.Y == 0.f)
-    acel = -_drag * GetActorForwardVector();
+    acel = -m_fDrag * GetActorForwardVector();
   else
-    acel = _brakeAcel * m_vMovementInput.Y * GetActorForwardVector();
+    acel = m_fBrakeAcel * m_vMovementInput.Y * GetActorForwardVector();
 
-  acel += m_vMovementInput.X * m_vVelocity.Size() * GetActorRightVector();
+  acel += m_vMovementInput.X * m_vVelocity.Size() * m_fRotationFactor * GetActorRightVector();
 
   return acel;
 }
@@ -59,8 +59,8 @@ void ACar::CalculateVelocity(FVector acel, float DeltaTime)
       FMath::Acos(FVector::DotProduct(m_vVelocity, GetActorForwardVector())) > 1.f) // +-60º
     m_vVelocity = FVector::ZeroVector;
 
-  else if (m_vVelocity.Size() > _maxVelocity)
-    m_vVelocity *= _maxVelocity / m_vVelocity.Size();
+  else if (m_vVelocity.Size() > m_fMaxVelocity)
+    m_vVelocity *= m_fMaxVelocity / m_vVelocity.Size();
 }
 
 // Called to bind functionality to input
