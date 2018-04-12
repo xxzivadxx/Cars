@@ -37,10 +37,10 @@ void CServerCars::connexionPacketReceived(Net::CPaquete* packet)
 {
   // Creamos un buffer con los datos para leer de manera más cómoda
   Net::CBuffer data;
-  const char* sHellow = "Hello";
+  const char* sHellow = "Connected";
   data.write(sHellow, sizeof(sHellow));
   m_pManager->send(data.getbuffer(), data.getSize());
-  std::cout << "Hello World! ";
+  std::cout << "Client connected! ";
 }
 
 //--------------------------------
