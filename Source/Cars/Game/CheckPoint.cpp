@@ -8,7 +8,6 @@ ACheckPoint::ACheckPoint()
 {
   //Register Events
   OnActorEndOverlap.AddDynamic(this, &ACheckPoint::OnOverlapBegin);
-  OnActorEndOverlap.AddDynamic(this, &ACheckPoint::OnOverlapEnd);
 }
 
 // Called when the game starts or when spawned
@@ -25,6 +24,7 @@ void ACheckPoint::OnOverlapBegin(class AActor* OverlappedActor, class AActor* Ot
   // check if Actors do not equal nullptr and that 
   if (OtherActor && (OtherActor != this))
   {
+    m_pFinishLine->AddPassedCheckPoint();
   }
 }
 

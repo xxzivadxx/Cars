@@ -30,7 +30,12 @@ public:
   UFUNCTION()
     void OnOverlapEnd(class AActor* OverlappedActor, class AActor* OtherActor);
 
+  inline void AddPassedCheckPoint() { ++m_uPassedCheckPoints; }
+
 protected:
   UPROPERTY(EditAnywhere, BlueprintReadWrite)
     TArray<ACheckPoint*> m_vCheckPoints;
+
+  unsigned int m_uPassedCheckPoints = 0u;
+  unsigned int m_uLaps = 0u;
 };
