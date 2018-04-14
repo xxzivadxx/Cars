@@ -2,6 +2,10 @@
 
 #include "Car.h"
 #include "Components/InputComponent.h"
+#include "CarMovementComponent.h"
+#include "Components/StaticMeshComponent.h"
+#include "Components/BoxComponent.h"
+#include "ConstructorHelpers.h"
 
 
 // Sets default values
@@ -9,58 +13,41 @@ ACar::ACar()
 {
  	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-
+  m_pCarMovement = CreateDefaultSubobject<UCarMovementComponent>(TEXT("CarMovement"));
+  UBoxComponent* BoxComponent = CreateDefaultSubobject<UBoxComponent>(TEXT("RootComponent"));
+  RootComponent = BoxComponent;
+  m_pMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("VisualRepresentation"));
+  m_pMesh->SetupAttachment(RootComponent);
+  static ConstructorHelpers::FObjectFinder<UStaticMesh> BoxVisualAsset(TEXT("/Engine/BasicShapes/Cube"));
+  if (BoxVisualAsset.Succeeded())
+  {
+    m_pMesh->SetStaticMesh(BoxVisualAsset.Object);
+    static ConstructorHelpers::FObjectFinder<UMaterial> CarMaterial(TEXT("Material'/Game/Textures/Car'"));
+    m_pMesh->SetMaterial(0, CarMaterial.Object);
+    m_pMesh->SetWorldScale3D(FVector(0.2f, 0.1f, 0.05f));
+  }
+  SetActorRotation(FRotator(0.f, 270.f, 0.f));
+  AutoPossessPlayer = EAutoReceiveInput::Player0;
+  AutoPossessAI = EAutoPossessAI::Disabled; 
 }
 
 // Called when the game starts or when spawned
 void ACar::BeginPlay()
 {
 	Super::BeginPlay();
-  m_vMovementInput.Set(0.f, 0.f, 0.f);
+  m_vMovementInput.Set(0.f, 0.f);
 }
 
 // Called every frame
 void ACar::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-  FVector vAccel = CalculateAceleration(DeltaTime);
-  CalculateVelocity(vAccel, DeltaTime);
-  auto oTrans = GetActorTransform();
-  oTrans.AddToTranslation(m_vVelocity * DeltaTime);
-  FVector PlayerLoc = GetActorLocation();
-  SetActorTransform(oTrans);
-  if (m_vVelocity != FVector::ZeroVector)
-  {
-    FRotator Rot = FRotationMatrix::MakeFromX(m_vVelocity).Rotator();
-    SetActorRotation(Rot);
-  }
+  m_pCarMovement->SetInput(m_vMovementInput);
 }
 
-FVector ACar::CalculateAceleration(float DeltaTime)
+float ACar::GetVelocityMagnitude()
 {
-  FVector acel;
-  if (m_vMovementInput.Y > 0.f)
-    acel = m_fAcel * m_vMovementInput.Y * GetActorForwardVector();
-  else if (m_vMovementInput.Y == 0.f)
-    acel = -m_fDrag * GetActorForwardVector();
-  else
-    acel = m_fBrakeAcel * m_vMovementInput.Y * GetActorForwardVector();
-
-  acel += m_vMovementInput.X * m_vVelocity.Size() * m_fRotationFactor * GetActorRightVector();
-
-  return acel;
-}
-
-void ACar::CalculateVelocity(FVector acel, float DeltaTime)
-{
-  m_vVelocity += acel * DeltaTime;
-
-  if (m_vVelocity != FVector::ZeroVector && 
-      FMath::Acos(FVector::DotProduct(m_vVelocity, GetActorForwardVector())) > 1.f) // +-60º
-    m_vVelocity = FVector::ZeroVector;
-
-  else if (m_vVelocity.Size() > m_fMaxVelocity)
-    m_vVelocity *= m_fMaxVelocity / m_vVelocity.Size();
+  return m_pCarMovement->GetVelocityMagnitude();
 }
 
 // Called to bind functionality to input

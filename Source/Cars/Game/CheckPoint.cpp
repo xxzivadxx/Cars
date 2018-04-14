@@ -22,9 +22,9 @@ void ACheckPoint::BeginPlay()
 void ACheckPoint::OnOverlapBegin(class AActor* OverlappedActor, class AActor* OtherActor)
 {
   // check if Actors do not equal nullptr and that 
-  if (OtherActor && (OtherActor != this))
+  if (OtherActor && (OtherActor != this) && m_pFinishLine)
   {
-    m_pFinishLine->AddPassedCheckPoint();
+    m_pFinishLine->AddPassedCheckPoint(this);
   }
 }
 

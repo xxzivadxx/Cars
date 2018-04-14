@@ -180,9 +180,11 @@ namespace Net {
 		assert(_connections.empty() && "Ya hay una conexion");
 		CConexion* connection = _clienteRed->connect(address, port, channels,timeout);
 		// Almacenamos esa conexión y le otorgamos un ID de red
-		connection->setId(Net::ID::SERVER);
-		addConnection(Net::ID::SERVER,connection);
-
+    if (connection)
+    {
+      connection->setId(Net::ID::SERVER);
+      addConnection(Net::ID::SERVER, connection);
+    }
 	} // connectTo
 
 	//---------------------------------------------------------

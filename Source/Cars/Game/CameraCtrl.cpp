@@ -31,7 +31,7 @@ void ACameraCtrl::BeginPlay()
   m_pManager = Net::CManager::getSingletonPtr();
   m_pManager->activateAsClient();
   m_pManager->addObserver(&m_oNetObserver);
-  m_pManager->connectTo("127.0.0.1", 65785);
+  m_pManager->connectTo("127.0.0.1", 65785, 1, 500u);
 }
 
 // Called every frame

@@ -6,6 +6,8 @@
 #include "GameFramework/Pawn.h"
 #include "Car.generated.h"
 
+class UCarMovementComponent;
+
 UCLASS()
 class CARS_API ACar : public APawn
 {
@@ -14,41 +16,28 @@ class CARS_API ACar : public APawn
 public:
 	// Sets default values for this pawn's properties
 	ACar();
+  // Called every frame
+  virtual void Tick(float DeltaTime) override;
+  // Called to bind functionality to input
+  virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+  // Velocity magnitude
+  float GetVelocityMagnitude();
 
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
-
-	// Called to bind functionality to input
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-
-  float GetVelocityMagnitude() { return m_vVelocity.Size(); }
-
-protected:
-  UPROPERTY(EditAnywhere, BlueprintReadWrite)
-  float m_fAcel = 120.f;
-  UPROPERTY(EditAnywhere, BlueprintReadWrite)
-  float m_fDrag = 50.f;
-  UPROPERTY(EditAnywhere, BlueprintReadWrite)
-  float m_fBrakeAcel = 300.f;
-  UPROPERTY(EditAnywhere, BlueprintReadWrite)
-  float m_fMaxVelocity = 250.f;
-  UPROPERTY(EditAnywhere, BlueprintReadWrite)
-  float m_fRotationFactor = 2.f;
-
-  FVector m_vVelocity = FVector::ZeroVector;
-
-  //Input variables
-  FVector m_vMovementInput;
-
   //Input functions
   void Move(float AxisValue);
   void Turn(float AxisValue);
-  FVector CalculateAceleration(float DeltaTime);
-  void CalculateVelocity(FVector _vAcel, float DeltaTime);
-	
+
+protected:
+  //Input variables
+  FVector2D m_vMovementInput = FVector2D::ZeroVector;
+  //Movement
+  UPROPERTY(EditAnywhere)
+  UCarMovementComponent* m_pCarMovement;
+  //Mesh
+  UPROPERTY(EditAnywhere)
+  UStaticMeshComponent* m_pMesh;
 };

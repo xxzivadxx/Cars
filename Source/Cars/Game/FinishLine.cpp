@@ -8,10 +8,6 @@ AFinishLine::AFinishLine()
 {
   //Register Events
   OnActorEndOverlap.AddDynamic(this, &AFinishLine::OnOverlapBegin);
-  for (ACheckPoint* pCP : m_vCheckPoints)
-  {
-    pCP->SetFinishLine(this);
-  }
 }
 
 // Called when the game starts or when spawned
@@ -19,8 +15,21 @@ void AFinishLine::BeginPlay()
 {
   Super::BeginPlay();
 
-  DrawDebugBox(GetWorld(), GetActorLocation(), GetComponentsBoundingBox().GetExtent(), FColor::Purple, true, -1, 0, 5);
+  for (ACheckPoint* pCP : m_vCheckPoints)
+  {
+    pCP->SetFinishLine(this);
+  }
 
+  DrawDebugBox(GetWorld(), GetActorLocation(), GetComponentsBoundingBox().GetExtent(), FColor::Green, true, -1, 0, 5);
+
+}
+
+void AFinishLine::AddPassedCheckPoint(ACheckPoint* _pCheckPoint)
+{
+  if (!m_vPassedCheckPoints.Contains(_pCheckPoint))
+  {
+    m_vPassedCheckPoints.Add(_pCheckPoint);
+  }
 }
 
 void AFinishLine::OnOverlapBegin(class AActor* OverlappedActor, class AActor* OtherActor)
@@ -28,22 +37,25 @@ void AFinishLine::OnOverlapBegin(class AActor* OverlappedActor, class AActor* Ot
   // check if Actors do not equal nullptr and that 
   if (OtherActor && (OtherActor != this))
   {
-    if (m_uPassedCheckPoints == m_vCheckPoints.Num())
+    if (m_vPassedCheckPoints.Num() == m_vCheckPoints.Num())
     {
       ++m_uLaps;
 
       if (GEngine)
       {
         // Put up a debug message for five seconds. The -1 "Key" value (first argument) indicates that we will never need to update or refresh this message.
-        GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, TEXT("meta!"));
+        GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, *FString("Lap " + FString::FromInt(m_uLaps)));
       }
     }
-    m_uPassedCheckPoints = 0u;
-    if (GEngine)
+    else
     {
-      // Put up a debug message for five seconds. The -1 "Key" value (first argument) indicates that we will never need to update or refresh this message.
-      GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("meta!"));
+      if (GEngine)
+      {
+        // Put up a debug message for five seconds. The -1 "Key" value (first argument) indicates that we will never need to update or refresh this message.
+        GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, *FString("Invalid lap!"));
+      }
     }
+    m_vPassedCheckPoints.Reset();
   }
 }
 
