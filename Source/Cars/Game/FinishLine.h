@@ -38,4 +38,7 @@ protected:
 
   TArray<ACheckPoint*> m_vPassedCheckPoints;
   unsigned int m_uLaps = 0u;
+  float m_fPreviousTime = 0.f;
+  float m_fLastLapTime = 0.f;
+  float m_fBestTime = FLT_MAX;
 };

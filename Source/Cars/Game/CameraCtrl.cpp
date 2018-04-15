@@ -12,19 +12,17 @@ ACameraCtrl::ACameraCtrl()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-
 }
 
 // Called when the game starts or when spawned
 void ACameraCtrl::BeginPlay()
 {
 	Super::BeginPlay();
-
   //Find the actor that handles control for the local player.
   APlayerController* OurPlayerController = UGameplayStatics::GetPlayerController(this, 0);
   if (OurPlayerController)
   {
-    OurPlayerController->SetViewTarget(CameraOne);
+    OurPlayerController->SetViewTarget(this);
   }
 
   Net::CManager::Init();
@@ -43,9 +41,9 @@ void ACameraCtrl::Tick(float DeltaTime)
   {
     FVector vNewPos = m_pTarget->GetActorTransform().GetTranslation();
     vNewPos.Z = m_fMinDistance + m_pTarget->GetVelocityMagnitude() * m_fDistanceFromVelocityFactor;
-    FTransform oTransform = CameraOne->GetActorTransform();
+    FTransform oTransform = GetActorTransform();
     oTransform.SetTranslation(vNewPos);
-    CameraOne->SetActorTransform(oTransform);
+    SetActorTransform(oTransform);
   }
 }
 

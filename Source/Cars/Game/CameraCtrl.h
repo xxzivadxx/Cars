@@ -3,13 +3,13 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/Actor.h"
+#include "Camera/CameraActor.h"
 #include "../Net/Manager.h"
 #include "Car.h"
 #include "CameraCtrl.generated.h"
 
 UCLASS()
-class CARS_API ACameraCtrl : public AActor
+class CARS_API ACameraCtrl : public ACameraActor
 {
 	GENERATED_BODY()
 	
@@ -29,26 +29,22 @@ public:
 
 	// Sets default values for this actor's properties
 	ACameraCtrl();
-
+  // Called every frame
+  virtual void Tick(float DeltaTime) override;
+  //
+  inline void SetTarget(ACar* _pTarget) { m_pTarget = _pTarget; }
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
-
-
-  UPROPERTY(EditAnywhere)
-  AActor* CameraOne;
-
-  UPROPERTY(EditAnywhere)
-  ACar* m_pTarget;
-  UPROPERTY(EditAnywhere)
-  float m_fMinDistance = 200.f;
-  UPROPERTY(EditAnywhere)
-  float m_fDistanceFromVelocityFactor = 0.6f;
 private:
+  UPROPERTY(EditAnywhere)
+    ACar* m_pTarget;
+  UPROPERTY(EditAnywhere)
+    float m_fMinDistance = 200.f;
+  UPROPERTY(EditAnywhere)
+    float m_fDistanceFromVelocityFactor = 0.6f;
+
   Net::CManager* m_pManager = nullptr;
   CNetObserver m_oNetObserver;
 	

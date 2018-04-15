@@ -1,11 +1,13 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "Car.h"
+#include "CameraCtrl.h"
 #include "Components/InputComponent.h"
 #include "CarMovementComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/BoxComponent.h"
 #include "ConstructorHelpers.h"
+#include "Kismet/GameplayStatics.h"
 
 
 // Sets default values
@@ -24,11 +26,11 @@ ACar::ACar()
     m_pMesh->SetStaticMesh(BoxVisualAsset.Object);
     static ConstructorHelpers::FObjectFinder<UMaterial> CarMaterial(TEXT("Material'/Game/Textures/Car'"));
     m_pMesh->SetMaterial(0, CarMaterial.Object);
-    m_pMesh->SetWorldScale3D(FVector(0.2f, 0.1f, 0.05f));
   }
+  SetActorScale3D(FVector(0.2f, 0.1f, 0.05f));
   SetActorRotation(FRotator(0.f, 270.f, 0.f));
   AutoPossessPlayer = EAutoReceiveInput::Player0;
-  AutoPossessAI = EAutoPossessAI::Disabled; 
+  AutoPossessAI = EAutoPossessAI::Disabled;
 }
 
 // Called when the game starts or when spawned
@@ -36,6 +38,16 @@ void ACar::BeginPlay()
 {
 	Super::BeginPlay();
   m_vMovementInput.Set(0.f, 0.f);
+
+  APlayerController* OurPlayerController = UGameplayStatics::GetPlayerController(this, 0);
+  if (OurPlayerController)
+  {
+    ACameraCtrl* _pCtrl = Cast<ACameraCtrl>(OurPlayerController->GetViewTarget());
+    if (_pCtrl)
+    {
+      _pCtrl->SetTarget(this);
+    }
+  }
 }
 
 // Called every frame

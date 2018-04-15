@@ -3,6 +3,7 @@
 // include draw debu helpers header file
 #include "DrawDebugHelpers.h"
 #include "CheckPoint.h"
+#include "Engine/World.h"
 
 AFinishLine::AFinishLine()
 {
@@ -37,15 +38,20 @@ void AFinishLine::OnOverlapBegin(class AActor* OverlappedActor, class AActor* Ot
   // check if Actors do not equal nullptr and that 
   if (OtherActor && (OtherActor != this))
   {
+    float fCurrentTime = GetWorld()->GetTimeSeconds();// UGameplayStatics::GetRealTimeSeconds(GetWorld());
     if (m_vPassedCheckPoints.Num() == m_vCheckPoints.Num())
     {
+      m_fLastLapTime = fCurrentTime - m_fPreviousTime;
+      m_fPreviousTime = fCurrentTime;
+      if (m_fBestTime > m_fLastLapTime)
+      {
+        m_fBestTime = m_fLastLapTime;
+        // Put up a debug message for five seconds. The -1 "Key" value (first argument) indicates that we will never need to update or refresh this message.
+        GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, *FString("Best Lap!"));
+      }
       ++m_uLaps;
 
-      if (GEngine)
-      {
-        // Put up a debug message for five seconds. The -1 "Key" value (first argument) indicates that we will never need to update or refresh this message.
-        GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, *FString("Lap " + FString::FromInt(m_uLaps)));
-      }
+      GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, *FString("Lap " + FString::FromInt(m_uLaps) + "(" + FString::SanitizeFloat(m_fLastLapTime) + " seconds)"));
     }
     else
     {
