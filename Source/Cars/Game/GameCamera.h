@@ -3,7 +3,6 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Car.h"
 #include "Camera/CameraActor.h"
 #include "GameCamera.generated.h"
 
@@ -16,16 +15,7 @@ public:
 	AGameCamera();
   // Called every frame
   virtual void Tick(float DeltaTime) override;
-  //
-  inline void SetTarget(ACar* _pTarget) { m_pTarget = _pTarget; }
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-private:
-  UPROPERTY(EditAnywhere)
-    ACar* m_pTarget;
-  UPROPERTY(EditAnywhere)
-    float m_fMinDistance = 200.f;
-  UPROPERTY(EditAnywhere)
-    float m_fDistanceFromVelocityFactor = 0.6f;	
 };

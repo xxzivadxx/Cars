@@ -3,7 +3,6 @@
 #include "GameCamera.h"
 #include "Kismet/GameplayStatics.h"
 
-
 // Sets default values
 AGameCamera::AGameCamera()
 {
@@ -27,12 +26,4 @@ void AGameCamera::BeginPlay()
 void AGameCamera::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-  if (m_pTarget)
-  {
-    FVector vNewPos = m_pTarget->GetActorTransform().GetTranslation();
-    vNewPos.Z = m_fMinDistance + m_pTarget->GetVelocityMagnitude() * m_fDistanceFromVelocityFactor;
-    FTransform oTransform = GetActorTransform();
-    oTransform.SetTranslation(vNewPos);
-    SetActorTransform(oTransform);
-  }
 }

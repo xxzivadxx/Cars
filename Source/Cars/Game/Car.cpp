@@ -38,16 +38,6 @@ void ACar::BeginPlay()
 {
 	Super::BeginPlay();
   m_vMovementInput.Set(0.f, 0.f);
-
-  APlayerController* OurPlayerController = UGameplayStatics::GetPlayerController(this, 0);
-  if (OurPlayerController)
-  {
-    AGameCamera* _pCtrl = Cast<AGameCamera>(OurPlayerController->GetViewTarget());
-    if (_pCtrl)
-    {
-      _pCtrl->SetTarget(this);
-    }
-  }
 }
 
 // Called every frame
