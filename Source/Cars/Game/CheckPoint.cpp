@@ -7,7 +7,7 @@
 ACheckPoint::ACheckPoint()
 {
   //Register Events
-  OnActorEndOverlap.AddDynamic(this, &ACheckPoint::OnOverlapBegin);
+  OnActorBeginOverlap.AddDynamic(this, &ACheckPoint::OnOverlapBegin);
 }
 
 // Called when the game starts or when spawned

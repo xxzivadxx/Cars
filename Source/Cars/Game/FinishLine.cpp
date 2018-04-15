@@ -8,7 +8,7 @@
 AFinishLine::AFinishLine()
 {
   //Register Events
-  OnActorEndOverlap.AddDynamic(this, &AFinishLine::OnOverlapBegin);
+  OnActorBeginOverlap.AddDynamic(this, &AFinishLine::OnOverlapBegin);
 }
 
 // Called when the game starts or when spawned
@@ -38,7 +38,7 @@ void AFinishLine::OnOverlapBegin(class AActor* OverlappedActor, class AActor* Ot
   // check if Actors do not equal nullptr and that 
   if (OtherActor && (OtherActor != this))
   {
-    float fCurrentTime = GetWorld()->GetTimeSeconds();// UGameplayStatics::GetRealTimeSeconds(GetWorld());
+    float fCurrentTime = GetWorld()->GetTimeSeconds();
     if (m_vPassedCheckPoints.Num() == m_vCheckPoints.Num())
     {
       m_fLastLapTime = fCurrentTime - m_fPreviousTime;

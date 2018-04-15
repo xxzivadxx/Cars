@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "GameCamera.h"
+#include "Car.h"
 #include "Kismet/GameplayStatics.h"
 #include "Net/buffer.h"
 #include "Net/paquete.h"

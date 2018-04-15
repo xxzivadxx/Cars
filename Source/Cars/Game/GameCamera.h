@@ -5,8 +5,9 @@
 #include "CoreMinimal.h"
 #include "Camera/CameraActor.h"
 #include "../Net/Manager.h"
-#include "Car.h"
 #include "GameCamera.generated.h"
+
+class ACar;
 
 UCLASS()
 class CARS_API AGameCamera : public ACameraActor
