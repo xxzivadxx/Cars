@@ -1,13 +1,13 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include "CameraCtrl.h"
+#include "GameCamera.h"
 #include "Kismet/GameplayStatics.h"
 #include "Net/buffer.h"
 #include "Net/paquete.h"
 
 
 // Sets default values
-ACameraCtrl::ACameraCtrl()
+AGameCamera::AGameCamera()
   : m_oNetObserver(this)
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
@@ -15,7 +15,7 @@ ACameraCtrl::ACameraCtrl()
 }
 
 // Called when the game starts or when spawned
-void ACameraCtrl::BeginPlay()
+void AGameCamera::BeginPlay()
 {
 	Super::BeginPlay();
   //Find the actor that handles control for the local player.
@@ -33,7 +33,7 @@ void ACameraCtrl::BeginPlay()
 }
 
 // Called every frame
-void ACameraCtrl::Tick(float DeltaTime)
+void AGameCamera::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
   m_pManager->tick();
@@ -49,7 +49,7 @@ void ACameraCtrl::Tick(float DeltaTime)
 
 //--------------------------------
 
-void ACameraCtrl::CNetObserver::dataPacketReceived(Net::CPaquete* packet)
+void AGameCamera::CNetObserver::dataPacketReceived(Net::CPaquete* packet)
 {
   // Creamos un buffer con los datos para leer de manera más cómoda
   Net::CBuffer data;
@@ -67,13 +67,13 @@ void ACameraCtrl::CNetObserver::dataPacketReceived(Net::CPaquete* packet)
 
 //--------------------------------
 
-void ACameraCtrl::CNetObserver::connexionPacketReceived(Net::CPaquete* packet)
+void AGameCamera::CNetObserver::connexionPacketReceived(Net::CPaquete* packet)
 {
 }
 
 //--------------------------------
 
-void ACameraCtrl::CNetObserver::disconnexionPacketReceived(Net::CPaquete* packet)
+void AGameCamera::CNetObserver::disconnexionPacketReceived(Net::CPaquete* packet)
 {
 
 }

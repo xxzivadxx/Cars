@@ -6,10 +6,10 @@
 #include "Camera/CameraActor.h"
 #include "../Net/Manager.h"
 #include "Car.h"
-#include "CameraCtrl.generated.h"
+#include "GameCamera.generated.h"
 
 UCLASS()
-class CARS_API ACameraCtrl : public ACameraActor
+class CARS_API AGameCamera : public ACameraActor
 {
 	GENERATED_BODY()
 	
@@ -18,17 +18,17 @@ public:
   {
   public:
     CNetObserver() : m_pController(nullptr) { }
-    CNetObserver(ACameraCtrl* _pController) : m_pController(_pController) { }
+    CNetObserver(AGameCamera* _pController) : m_pController(_pController) { }
     // Net::CManager::IObserver
     virtual void dataPacketReceived(Net::CPaquete* packet);
     virtual void connexionPacketReceived(Net::CPaquete* packet);
     virtual void disconnexionPacketReceived(Net::CPaquete* packet);
   private:
-    ACameraCtrl* m_pController;
+    AGameCamera* m_pController;
   };
 
 	// Sets default values for this actor's properties
-	ACameraCtrl();
+	AGameCamera();
   // Called every frame
   virtual void Tick(float DeltaTime) override;
   //

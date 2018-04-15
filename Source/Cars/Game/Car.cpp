@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "Car.h"
-#include "CameraCtrl.h"
+#include "GameCamera.h"
 #include "Components/InputComponent.h"
 #include "CarMovementComponent.h"
 #include "Components/StaticMeshComponent.h"
@@ -42,7 +42,7 @@ void ACar::BeginPlay()
   APlayerController* OurPlayerController = UGameplayStatics::GetPlayerController(this, 0);
   if (OurPlayerController)
   {
-    ACameraCtrl* _pCtrl = Cast<ACameraCtrl>(OurPlayerController->GetViewTarget());
+    AGameCamera* _pCtrl = Cast<AGameCamera>(OurPlayerController->GetViewTarget());
     if (_pCtrl)
     {
       _pCtrl->SetTarget(this);
