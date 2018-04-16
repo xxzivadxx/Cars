@@ -13,8 +13,8 @@ UCLASS()
 class CARS_API ACarsPlayerController : public APlayerController
 {
   GENERATED_BODY()
-
+  
+public:
   ACarsPlayerController(const class FObjectInitializer& ObjectInitializer);
-	
-	
+  virtual void BeginPlay() override;	
 };

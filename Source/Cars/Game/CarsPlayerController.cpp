@@ -8,5 +8,10 @@ ACarsPlayerController::ACarsPlayerController(const class FObjectInitializer& Obj
 {
   bAutoManageActiveCameraTarget = false;
 }
+void ACarsPlayerController::BeginPlay()
+{
+  Super::BeginPlay();
+  SetInputMode(FInputModeGameAndUI());
+}
 
 
