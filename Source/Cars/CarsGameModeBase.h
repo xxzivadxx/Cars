@@ -18,15 +18,21 @@ public:
   virtual APawn* SpawnDefaultPawnFor_Implementation(AController* NewPlayer, AActor* StartSpot) override;
 
   /** Remove the current menu widget and create a new one from the specified class, if provided. */
-  UFUNCTION(BlueprintCallable, Category = "UMG Game")
+  UFUNCTION(BlueprintCallable, Category = CarsNet)
   void ChangeMenuWidget(TSubclassOf<UUserWidget> NewWidgetClass);
+  UFUNCTION(BlueprintCallable, Category = CarsNet)
+  void OnServerButtonClick();
+  UFUNCTION(BlueprintCallable, Category = CarsNet)
+  void OnClientButtonClick();
+  UFUNCTION(BlueprintCallable, Category = CarsNet)
+  void OnServerStartButtonClick();
 
 protected:
   /** Called when the game starts. */
   virtual void BeginPlay() override;
 
   /** The widget class we will use as our menu when the game starts. */
-  UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "UMG Game")
+  UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = CarsNet)
   TSubclassOf<UUserWidget> StartingWidgetClass;
 
   /** The widget instance that we are using as our menu. */
