@@ -20,11 +20,9 @@ public:
   class CServerObserver : public Net::CManager::IObserver
   {
   public:
-    CServerObserver() : m_pController(nullptr) { }
-    CServerObserver(ACarsGameModeBase* _pController) : m_pController(_pController) { }
+    CServerObserver();
+    CServerObserver(ACarsGameModeBase* _pController);
     virtual ~CServerObserver() { }
-
-    void Step();
 
     // Net::CManager::IObserver
     virtual void dataPacketReceived(Net::CPaquete* packet);
@@ -38,13 +36,15 @@ public:
   ACarsGameModeBase(const class FObjectInitializer& ObjectInitializer);
   virtual APawn* SpawnDefaultPawnFor_Implementation(AController* NewPlayer, AActor* StartSpot) override;
 
+  virtual void Tick(float DeltaSeconds) override;
+
   /** Remove the current menu widget and create a new one from the specified class, if provided. */
   UFUNCTION(BlueprintCallable, Category = CarsNet)
   void ChangeMenuWidget(TSubclassOf<UUserWidget> NewWidgetClass);
   UFUNCTION(BlueprintCallable, Category = CarsNet)
   void OnServerButtonClick(FString sPort);
   UFUNCTION(BlueprintCallable, Category = CarsNet)
-  void OnClientButtonClick();
+  void OnClientButtonClick(FString sIP, FString sPort);
   UFUNCTION(BlueprintCallable, Category = CarsNet)
   void OnServerStartButtonClick();
 
@@ -60,6 +60,6 @@ protected:
   UPROPERTY()
   UUserWidget* CurrentWidget;
   //
-  CServerObserver oObserver;
+  CServerObserver m_oObserver;
   Net::CManager* m_pManager = nullptr;
 };
