@@ -4,7 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
+#include "Net/Manager.h"
 #include "CarsGameModeBase.generated.h"
+
 
 /**
  * 
@@ -14,6 +16,25 @@ class CARS_API ACarsGameModeBase : public AGameModeBase
 {
   GENERATED_BODY()
 public:
+
+  class CServerObserver : public Net::CManager::IObserver
+  {
+  public:
+    CServerObserver() : m_pController(nullptr) { }
+    CServerObserver(ACarsGameModeBase* _pController) : m_pController(_pController) { }
+    virtual ~CServerObserver() { }
+
+    void Step();
+
+    // Net::CManager::IObserver
+    virtual void dataPacketReceived(Net::CPaquete* packet);
+    virtual void connexionPacketReceived(Net::CPaquete* packet);
+    virtual void disconnexionPacketReceived(Net::CPaquete* packet);
+  private:
+    Net::CManager* m_pManager = nullptr;
+    ACarsGameModeBase* m_pController;
+  };
+
   ACarsGameModeBase(const class FObjectInitializer& ObjectInitializer);
   virtual APawn* SpawnDefaultPawnFor_Implementation(AController* NewPlayer, AActor* StartSpot) override;
 
@@ -37,5 +58,8 @@ protected:
 
   /** The widget instance that we are using as our menu. */
   UPROPERTY()
-  UUserWidget* CurrentWidget;	
+  UUserWidget* CurrentWidget;
+  //
+  CServerObserver oObserver;
+  Net::CManager* m_pManager = nullptr;
 };
