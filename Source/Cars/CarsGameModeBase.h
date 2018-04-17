@@ -42,7 +42,7 @@ public:
   UFUNCTION(BlueprintCallable, Category = CarsNet)
   void ChangeMenuWidget(TSubclassOf<UUserWidget> NewWidgetClass);
   UFUNCTION(BlueprintCallable, Category = CarsNet)
-  void OnServerButtonClick();
+  void OnServerButtonClick(FString sPort);
   UFUNCTION(BlueprintCallable, Category = CarsNet)
   void OnClientButtonClick();
   UFUNCTION(BlueprintCallable, Category = CarsNet)

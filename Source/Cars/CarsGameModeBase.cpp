@@ -64,7 +64,7 @@ void ACarsGameModeBase::ChangeMenuWidget(TSubclassOf<UUserWidget> NewWidgetClass
   }
 }
 
-void ACarsGameModeBase::OnServerButtonClick()
+void ACarsGameModeBase::OnServerButtonClick(FString sPort)
 {
   GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, *FString("Server"));
 
