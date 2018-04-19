@@ -3,6 +3,7 @@
 #include "CarsGameModeBase.h"
 #include "Game/CarsPlayerController.h"
 #include "Blueprint/UserWidget.h"
+#include "Kismet/GameplayStatics.h"
 #include "Net/buffer.h"
 #include "Net/paquete.h"
 #include <iostream>
@@ -86,6 +87,7 @@ ACarsGameModeBase::ACarsGameModeBase(const class FObjectInitializer& ObjectIniti
     Net::CManager::Init();
   }
   m_pManager = Net::CManager::getSingletonPtr();
+  m_pManager->addObserver(&m_oObserver);
 }
 
 APawn* ACarsGameModeBase::SpawnDefaultPawnFor_Implementation(AController* NewPlayer, AActor* StartSpot)
@@ -126,7 +128,6 @@ void ACarsGameModeBase::OnServerButtonClick(FString sPort)
 {
   GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, *FString("Server"));
 
-  m_pManager->addObserver(&m_oObserver);
   m_pManager->activateAsServer(FCString::Atoi(*sPort));
 }
 
@@ -135,12 +136,16 @@ void ACarsGameModeBase::OnClientButtonClick(FString sIP, FString sPort)
   GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, *FString("Client"));
 
   m_pManager->activateAsClient();
-  m_pManager->addObserver(&m_oObserver);
   m_pManager->connectTo(TCHAR_TO_ANSI(*sIP), FCString::Atoi(*sPort));
 }
 
 void ACarsGameModeBase::OnServerStartButtonClick()
 {
   GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, *FString("Server Start!"));
+  UGameplayStatics::OpenLevel(GetWorld(), "Circuit1");
+  Net::CBuffer data;
+  Net::NetMessageType iID = Net::START_GAME;
+  data.write(&iID, sizeof(iID));
+  m_pManager->send(data.getbuffer(), data.getSize());
 }
 
