@@ -23,6 +23,7 @@ void AGameCamera::BeginPlay()
   if (OurPlayerController)
   {
     OurPlayerController->SetViewTarget(this);
+    m_pTarget = Cast<ACar>(OurPlayerController->GetPawn());
   }
 }
 

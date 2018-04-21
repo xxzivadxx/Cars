@@ -18,8 +18,6 @@ public:
 	AGameCamera();
   // Called every frame
   virtual void Tick(float DeltaTime) override;
-  //
-  inline void SetTarget(ACar* _pTarget) { m_pTarget = _pTarget; }
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
