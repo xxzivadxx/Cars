@@ -5,8 +5,8 @@
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
 #include "Net/Manager.h"
+#include "GameNet/GameNetServerMrg.h"
 #include "CarsGameModeBase.generated.h"
-
 
 /**
  * 
@@ -16,27 +16,14 @@ class CARS_API ACarsGameModeBase : public AGameModeBase
 {
   GENERATED_BODY()
 public:
-
-  class CServerObserver : public Net::CManager::IObserver
-  {
-  public:
-    CServerObserver();
-    CServerObserver(ACarsGameModeBase* _pController);
-    virtual ~CServerObserver() { }
-
-    // Net::CManager::IObserver
-    virtual void dataPacketReceived(Net::CPaquete* packet);
-    virtual void connexionPacketReceived(Net::CPaquete* packet);
-    virtual void disconnexionPacketReceived(Net::CPaquete* packet);
-  private:
-    Net::CManager* m_pManager = nullptr;
-    ACarsGameModeBase* m_pController;
-  };
-
   ACarsGameModeBase(const class FObjectInitializer& ObjectInitializer);
+  virtual ~ACarsGameModeBase();
+  virtual void Destroyed() override;
   virtual APawn* SpawnDefaultPawnFor_Implementation(AController* NewPlayer, AActor* StartSpot) override;
 
   virtual void Tick(float DeltaSeconds) override;
+
+  const CGameNetServerMrg& GetGameNetMgr() const { return m_oObserver; }
 
   /** Remove the current menu widget and create a new one from the specified class, if provided. */
   UFUNCTION(BlueprintCallable, Category = CarsNet)
@@ -52,6 +39,9 @@ protected:
   /** Called when the game starts. */
   virtual void BeginPlay() override;
 
+  /** Called when the game ends. */
+  virtual void EndPlay(EEndPlayReason::Type eEndPlayReason) override;
+
   /** The widget class we will use as our menu when the game starts. */
   UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = CarsNet)
   TSubclassOf<UUserWidget> StartingWidgetClass;
@@ -60,6 +50,6 @@ protected:
   UPROPERTY()
   UUserWidget* CurrentWidget;
   //
-  CServerObserver m_oObserver;
+  CGameNetServerMrg m_oObserver;
   Net::CManager* m_pManager = nullptr;
 };

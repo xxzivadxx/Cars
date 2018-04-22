@@ -29,7 +29,6 @@ ACar::ACar()
   }
   SetActorScale3D(FVector(0.2f, 0.1f, 0.05f));
   SetActorRotation(FRotator(0.f, 270.f, 0.f));
-  AutoPossessPlayer = EAutoReceiveInput::Player0;
   AutoPossessAI = EAutoPossessAI::Disabled;
 }
 

@@ -4,90 +4,24 @@
 #include "Game/CarsPlayerController.h"
 #include "Blueprint/UserWidget.h"
 #include "Kismet/GameplayStatics.h"
-#include "Net/buffer.h"
+#include "GameNet/GameBuffer.h"
 #include "Net/paquete.h"
 #include <iostream>
-
-
-ACarsGameModeBase::CServerObserver::CServerObserver() : m_pController(nullptr)
-{
-  if (!Net::CManager::getSingletonPtr())
-  {
-    Net::CManager::Init();
-  }
-  m_pManager = Net::CManager::getSingletonPtr();
-}
-
-ACarsGameModeBase::CServerObserver::CServerObserver(ACarsGameModeBase* _pController) : m_pController(_pController)
-{
-  if (!Net::CManager::getSingletonPtr())
-  {
-    Net::CManager::Init();
-  }
-  m_pManager = Net::CManager::getSingletonPtr();
-}
-
-void ACarsGameModeBase::CServerObserver::dataPacketReceived(Net::CPaquete* packet)
-{
-  if (m_pManager->getID() == Net::ID::SERVER)
-  {
-  }
-  else
-  {
-    // Creamos un buffer con los datos para leer de manera más cómoda
-    Net::CBuffer data;
-    data.write(packet->getData(), packet->getDataLength());
-    data.reset();
-    char sInfo[128];
-    data.read(sInfo, data.getSize());
-    if (GEngine)
-    {
-      // Put up a debug message for five seconds. The -1 "Key" value (first argument) indicates that we will never need to update or refresh this message.
-      GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, sInfo);
-    }
-  }
-}
-
-//--------------------------------
-
-void ACarsGameModeBase::CServerObserver::connexionPacketReceived(Net::CPaquete* packet)
-{
-  if (m_pManager->getID() == Net::ID::SERVER)
-  {
-    // Creamos un buffer con los datos para leer de manera más cómoda
-    Net::CBuffer data;
-    const char* sHello = "Connected";
-    data.write(sHello, sizeof(sHello));
-    m_pManager->send(data.getbuffer(), data.getSize());
-    if (GEngine)
-    {
-      // Put up a debug message for five seconds. The -1 "Key" value (first argument) indicates that we will never need to update or refresh this message.
-      GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, "Client connected! ");
-    }
-  }
-  else
-  {
-
-  }
-}
-
-//--------------------------------
-
-void ACarsGameModeBase::CServerObserver::disconnexionPacketReceived(Net::CPaquete* packet)
-{
-
-}
 
 ACarsGameModeBase::ACarsGameModeBase(const class FObjectInitializer& ObjectInitializer) : AGameModeBase(ObjectInitializer), m_oObserver(this)
 {
   PrimaryActorTick.bCanEverTick = true;
   PlayerControllerClass = ACarsPlayerController::StaticClass();
-  if (!Net::CManager::getSingletonPtr())
-  {
-    Net::CManager::Init();
-  }
   m_pManager = Net::CManager::getSingletonPtr();
-  m_pManager->addObserver(&m_oObserver);
+}
+
+ACarsGameModeBase::~ACarsGameModeBase()
+{
+}
+
+void ACarsGameModeBase::Destroyed()
+{
+
 }
 
 APawn* ACarsGameModeBase::SpawnDefaultPawnFor_Implementation(AController* NewPlayer, AActor* StartSpot)
@@ -99,12 +33,20 @@ void ACarsGameModeBase::BeginPlay()
 {
   Super::BeginPlay();
   ChangeMenuWidget(StartingWidgetClass);
+  m_pManager->addObserver(&m_oObserver);
+}
+
+void ACarsGameModeBase::EndPlay(EEndPlayReason::Type eEndPlayReason)
+{
+  Super::EndPlay(eEndPlayReason);
+  m_pManager->removeObserver(&m_oObserver);
 }
 
 void ACarsGameModeBase::Tick(float DeltaSeconds)
 {
   Super::Tick(DeltaSeconds);
-  m_pManager->tick();
+  if(CurrentWidget)
+    m_oObserver.Tick();
 }
 
 void ACarsGameModeBase::ChangeMenuWidget(TSubclassOf<UUserWidget> NewWidgetClass)
@@ -143,9 +85,11 @@ void ACarsGameModeBase::OnServerStartButtonClick()
 {
   GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, *FString("Server Start!"));
   UGameplayStatics::OpenLevel(GetWorld(), "Circuit1");
-  Net::CBuffer data;
-  Net::NetMessageType iID = Net::START_GAME;
-  data.write(&iID, sizeof(iID));
+  CGameBuffer data;
+  NetMessageType iID = NetMessageType::LOAD_MAP;
+  data.write(iID);
+  const char* sLevel = "Circuit1";
+  data.write(sLevel);
   m_pManager->send(data.getbuffer(), data.getSize());
 }
 

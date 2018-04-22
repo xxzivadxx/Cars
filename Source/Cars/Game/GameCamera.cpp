@@ -17,13 +17,21 @@ AGameCamera::AGameCamera()
 // Called when the game starts or when spawned
 void AGameCamera::BeginPlay()
 {
-	Super::BeginPlay();
-  //Find the actor that handles control for the local player.
-  APlayerController* OurPlayerController = UGameplayStatics::GetPlayerController(this, 0);
-  if (OurPlayerController)
+  Super::BeginPlay();
+  SetTarget();
+}
+
+void AGameCamera::SetTarget()
+{
+  if (!m_pTarget)
   {
-    OurPlayerController->SetViewTarget(this);
-    m_pTarget = Cast<ACar>(OurPlayerController->GetPawn());
+    //Find the actor that handles control for the local player.
+    APlayerController* OurPlayerController = UGameplayStatics::GetPlayerController(this, 0);
+    if (OurPlayerController)
+    {
+      OurPlayerController->SetViewTarget(this);
+      m_pTarget = Cast<ACar>(OurPlayerController->GetPawn());
+    }
   }
 }
 
@@ -31,6 +39,7 @@ void AGameCamera::BeginPlay()
 void AGameCamera::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+  SetTarget();
   if (m_pTarget)
   {
     FVector vNewPos = m_pTarget->GetActorTransform().GetTranslation();

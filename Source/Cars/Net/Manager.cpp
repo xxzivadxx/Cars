@@ -40,6 +40,7 @@ namespace Net {
 
 	CManager::~CManager()
 	{
+    Release();
 		_instance = 0;
 
 	} // ~CManager
@@ -152,6 +153,7 @@ namespace Net {
 
 	void CManager::activateAsServer(int port, int clients, unsigned int maxinbw, unsigned int maxoutbw)
 	{
+    deactivateNetwork();
 		//Creamos el servidor de red
 		_servidorRed = _factoriaRed->buildServidor();
 
@@ -165,6 +167,7 @@ namespace Net {
 
 	void CManager::activateAsClient(unsigned int maxConnections, unsigned int maxinbw, unsigned int maxoutbw)
 	{
+    deactivateNetwork();
 		//Creamos el servidor de red
 		_clienteRed = _factoriaRed->buildCliente();
 
@@ -299,6 +302,7 @@ namespace Net {
 				delete (*it).second;
 			_connections.clear();
 		}
+    _nextId = Net::ID::FIRSTCLIENT;
 	} // deactivateNetwork
 
 	//---------------------------------------------------------

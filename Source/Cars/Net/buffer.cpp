@@ -15,7 +15,7 @@
 #include "buffer.h"
 #include "memory.h"
 
-#define DEBUG_BUFFER 1
+//#define DEBUG_BUFFER 1
 
 namespace Net {
 
@@ -56,11 +56,26 @@ namespace Net {
 		_size+=datalength;
 	}
 
+  void CBuffer::write(const char* data)
+  {
+    size_t size = sizeof(data);
+    write(size);
+    write(data, sizeof(data));
+  }
+
 	void CBuffer::read(void* data,size_t datalength)
 	{
 		memcpy(data,_current,datalength);
 		_current+=datalength;
 	}
+
+  void CBuffer::read(char* data)
+  {
+    size_t size;
+    read(size);
+    read(data, size);
+    data[size] = '\0';
+  }
 
 	void CBuffer::realloc()
 	{

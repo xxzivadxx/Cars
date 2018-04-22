@@ -16,5 +16,7 @@ class CARS_API ACarsPlayerController : public APlayerController
   
 public:
   ACarsPlayerController(const class FObjectInitializer& ObjectInitializer);
-  virtual void BeginPlay() override;	
+  virtual void BeginPlay() override;
+
+  virtual void SetPawn(APawn* pPawn) override;
 };

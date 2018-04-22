@@ -36,7 +36,7 @@ public:
 	/**
 	 * Destructora
 	 */
-	~CBuffer();
+	virtual ~CBuffer();
 
 	/**
 	 * Devuelve el buffer como una secuencia de bytes
@@ -62,9 +62,11 @@ public:
 	 */
   void write(const void* data, size_t datalength);
 
-  void write(const int* data) { write(data, sizeof(int)); }
-  void write(const float* data) { write(data, sizeof(float)); }
-  void write(const char* data) { int size = sizeof(data); write(&size, sizeof(int)); (data, sizeof(data)); }
+  void write(int data) { write(&data, sizeof(data)); }
+  void write(size_t data) { write(&data, sizeof(data)); }
+  void write(unsigned int data) { write(&data, sizeof(data)); }
+  void write(float data) { write(&data, sizeof(data)); }
+  void write(const char* data);
 
 	/**
 	 * Lee datos del buffer.
@@ -73,6 +75,12 @@ public:
 	 * \param datalength es el número de datos (bytes) a leer
 	 */
 	void read (void* data, size_t datalength);
+
+  void read(int& data) { read(&data, sizeof(data)); }
+  void read(size_t& data) { read(&data, sizeof(data)); }
+  void read(unsigned int& data) { read(&data, sizeof(data)); }
+  void read(float& data) { read(&data, sizeof(data)); }
+  void read(char* data);
 
 
 protected:

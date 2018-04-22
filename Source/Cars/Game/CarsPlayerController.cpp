@@ -2,6 +2,7 @@
 
 #include "CarsPlayerController.h"
 #include "Game/GameCamera.h"
+#include "Game/Car.h"
 
 
 ACarsPlayerController::ACarsPlayerController(const class FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
@@ -14,4 +15,12 @@ void ACarsPlayerController::BeginPlay()
   SetInputMode(FInputModeGameAndUI());
 }
 
-
+void ACarsPlayerController::SetPawn(APawn* pPawn)
+{
+  Super::SetPawn(pPawn);
+  ACar* pCar = Cast<ACar>(GetPawn());
+  if (pCar)
+  {
+    pCar->SetupPlayerInputComponent(InputComponent);
+  }
+}

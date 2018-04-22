@@ -109,12 +109,15 @@ namespace Net
 			virtual void disconnexionPacketReceived(Net::CPaquete* packet)=0;
 		};
 
+    typedef std::pair<NetID, CConexion*> TConnectionPair;
+    typedef std::map<NetID, CConexion*> TConnectionTable;
+
 		/**
 		Devuelve la única instancia de la clase CManager.
 		
 		@return Única instancia de la clase CManager.
 		*/
-		static CManager* getSingletonPtr() {return _instance;}
+    static CManager* getSingletonPtr() { if (!_instance) Init(); return _instance; }
 
 		/**
 		Inicializa la instancia
@@ -167,6 +170,8 @@ namespace Net
 		@return El ID de red.
 		*/
 		NetID getID() {return _id;}
+
+    const TConnectionTable& getConnections() const { return _connections; }
 
 	protected:
 		/**
@@ -224,8 +229,6 @@ namespace Net
 		*/
 		Net::CCliente* _clienteRed;
 
-		typedef std::pair<NetID, CConexion*> TConnectionPair;
-		typedef std::map<NetID, CConexion*> TConnectionTable;
 		/**
 			Conexiones de red. Es decir, el servidor visto desde el cliente
 			o los clientes vistos desde el servidor. En el cliente solo se 
