@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
 #include "Net/Manager.h"
-#include "GameNet/GameNetServerMrg.h"
+#include "GameNet/GameNetMrg.h"
 #include "CarsGameModeBase.generated.h"
 
 /**
@@ -23,7 +23,7 @@ public:
 
   virtual void Tick(float DeltaSeconds) override;
 
-  const CGameNetServerMrg& GetGameNetMgr() const { return m_oObserver; }
+  const CGameNetMrg& GetGameNetMgr() const { return m_oGameNetMrg; }
 
   /** Remove the current menu widget and create a new one from the specified class, if provided. */
   UFUNCTION(BlueprintCallable, Category = CarsNet)
@@ -50,6 +50,6 @@ protected:
   UPROPERTY()
   UUserWidget* CurrentWidget;
   //
-  CGameNetServerMrg m_oObserver;
+  CGameNetMrg m_oGameNetMrg;
   Net::CManager* m_pManager = nullptr;
 };

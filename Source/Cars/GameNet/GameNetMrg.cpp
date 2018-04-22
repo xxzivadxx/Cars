@@ -1,6 +1,6 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include "GameNetServerMrg.h"
+#include "GameNetMrg.h"
 #include "GameNet/GameBuffer.h"
 #include "Net/paquete.h"
 #include "Kismet/GameplayStatics.h"
@@ -9,17 +9,17 @@
 #include "Engine/LevelStreaming.h"
 #include "Game/Car.h"
 
-CGameNetServerMrg::CGameNetServerMrg() : m_pController(nullptr)
+CGameNetMrg::CGameNetMrg() : m_pController(nullptr)
 {
   m_pManager = Net::CManager::getSingletonPtr();
 }
 
-CGameNetServerMrg::CGameNetServerMrg(ACarsGameModeBase* _pController) : m_pController(_pController)
+CGameNetMrg::CGameNetMrg(ACarsGameModeBase* _pController) : m_pController(_pController)
 {
   m_pManager = Net::CManager::getSingletonPtr();
 }
 
-void CGameNetServerMrg::dataPacketReceived(Net::CPaquete* packet)
+void CGameNetMrg::dataPacketReceived(Net::CPaquete* packet)
 {
   // Creamos un buffer con los datos para leer de manera más cómoda
   CGameBuffer data;
@@ -85,20 +85,20 @@ void CGameNetServerMrg::dataPacketReceived(Net::CPaquete* packet)
 
 //--------------------------------
 
-void CGameNetServerMrg::connexionPacketReceived(Net::CPaquete* packet)
+void CGameNetMrg::connexionPacketReceived(Net::CPaquete* packet)
 {
 }
 
 //--------------------------------
 
-void CGameNetServerMrg::disconnexionPacketReceived(Net::CPaquete* packet)
+void CGameNetMrg::disconnexionPacketReceived(Net::CPaquete* packet)
 {
 
 }
 
 //--------------------------------
 
-void CGameNetServerMrg::Tick()
+void CGameNetMrg::Tick()
 {
   m_pManager->tick();
 }

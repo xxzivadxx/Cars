@@ -8,7 +8,7 @@
 #include "Net/paquete.h"
 #include <iostream>
 
-ACarsGameModeBase::ACarsGameModeBase(const class FObjectInitializer& ObjectInitializer) : AGameModeBase(ObjectInitializer), m_oObserver(this)
+ACarsGameModeBase::ACarsGameModeBase(const class FObjectInitializer& ObjectInitializer) : AGameModeBase(ObjectInitializer), m_oGameNetMrg(this)
 {
   PrimaryActorTick.bCanEverTick = true;
   PlayerControllerClass = ACarsPlayerController::StaticClass();
@@ -33,20 +33,20 @@ void ACarsGameModeBase::BeginPlay()
 {
   Super::BeginPlay();
   ChangeMenuWidget(StartingWidgetClass);
-  m_pManager->addObserver(&m_oObserver);
+  m_pManager->addObserver(&m_oGameNetMrg);
 }
 
 void ACarsGameModeBase::EndPlay(EEndPlayReason::Type eEndPlayReason)
 {
   Super::EndPlay(eEndPlayReason);
-  m_pManager->removeObserver(&m_oObserver);
+  m_pManager->removeObserver(&m_oGameNetMrg);
 }
 
 void ACarsGameModeBase::Tick(float DeltaSeconds)
 {
   Super::Tick(DeltaSeconds);
   if(CurrentWidget)
-    m_oObserver.Tick();
+    m_oGameNetMrg.Tick();
 }
 
 void ACarsGameModeBase::ChangeMenuWidget(TSubclassOf<UUserWidget> NewWidgetClass)
