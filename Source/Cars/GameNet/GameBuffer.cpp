@@ -16,7 +16,21 @@ void CGameBuffer::write(NetMessageType data)
   write(&data, sizeof(data));
 }
 
+void CGameBuffer::write(const FVector& data)
+{
+  write(data.X);
+  write(data.Y);
+  write(data.Z);
+}
+
 void CGameBuffer::read(NetMessageType& data)
 {
   read(&data, sizeof(data));
+}
+
+void CGameBuffer::read(FVector& data)
+{
+  read(data.X);
+  read(data.Y);
+  read(data.Z);
 }

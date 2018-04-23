@@ -5,6 +5,7 @@
 #include "Net/Manager.h"
 
 class ACarsGameModeBase;
+class ACar;
 
 enum class NetMessageType {
   COMMAND,
@@ -14,7 +15,7 @@ enum class NetMessageType {
   LOAD_PLAYER,
   MAP_LOADED,
   PLAYER_LOADED,
-  ENTITY_MSG,
+  ACTOR_MSG,
   ASSIGNED_ID
 };
 
@@ -37,4 +38,6 @@ public:
 private:
   Net::CManager* m_pManager = nullptr;
   ACarsGameModeBase* m_pController;
+  std::map<unsigned int, ACar*> m_vPlayers;
+  unsigned int m_uMapLoadedNotifications = 0u;
 };

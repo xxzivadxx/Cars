@@ -3,6 +3,7 @@
 #pragma once
 
 #include "Net/buffer.h"
+#include "Math/Vector.h"
 
 enum class NetMessageType;
 /**
@@ -16,6 +17,8 @@ public:
 
   using Net::CBuffer::write;
   void write(NetMessageType data);
+  void write(const FVector& data);
   using Net::CBuffer::read;
   void read(NetMessageType& data);
+  void read(FVector& data);
 };
