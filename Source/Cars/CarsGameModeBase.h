@@ -23,8 +23,6 @@ public:
 
   virtual void Tick(float DeltaSeconds) override;
 
-  const CGameNetMrg& GetGameNetMgr() const { return m_oGameNetMrg; }
-
   /** Remove the current menu widget and create a new one from the specified class, if provided. */
   UFUNCTION(BlueprintCallable, Category = CarsNet)
   void ChangeMenuWidget(TSubclassOf<UUserWidget> NewWidgetClass);
@@ -50,6 +48,5 @@ protected:
   UPROPERTY()
   UUserWidget* CurrentWidget;
   //
-  CGameNetMrg m_oGameNetMrg;
   Net::CManager* m_pManager = nullptr;
 };

@@ -19,25 +19,3 @@ enum class NetMessageType {
   ASSIGNED_ID
 };
 
-/**
-*
-*/
-class CGameNetMrg : public Net::CManager::IObserver
-{
-public:
-  CGameNetMrg();
-  CGameNetMrg(ACarsGameModeBase* _pController);
-  virtual ~CGameNetMrg() { }
-
-  // Net::CManager::IObserver
-  virtual void dataPacketReceived(Net::CPaquete* packet);
-  virtual void connexionPacketReceived(Net::CPaquete* packet);
-  virtual void disconnexionPacketReceived(Net::CPaquete* packet);
-
-  void Tick();
-private:
-  Net::CManager* m_pManager = nullptr;
-  ACarsGameModeBase* m_pController;
-  std::map<unsigned int, ACar*> m_vPlayers;
-  unsigned int m_uMapLoadedNotifications = 0u;
-};

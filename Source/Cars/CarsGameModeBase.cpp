@@ -8,7 +8,7 @@
 #include "Net/paquete.h"
 #include <iostream>
 
-ACarsGameModeBase::ACarsGameModeBase(const class FObjectInitializer& ObjectInitializer) : AGameModeBase(ObjectInitializer), m_oGameNetMrg(this)
+ACarsGameModeBase::ACarsGameModeBase(const class FObjectInitializer& ObjectInitializer) : AGameModeBase(ObjectInitializer)
 {
   PrimaryActorTick.bCanEverTick = true;
   PlayerControllerClass = ACarsPlayerController::StaticClass();
@@ -33,19 +33,16 @@ void ACarsGameModeBase::BeginPlay()
 {
   Super::BeginPlay();
   ChangeMenuWidget(StartingWidgetClass);
-  m_pManager->addObserver(&m_oGameNetMrg);
 }
 
 void ACarsGameModeBase::EndPlay(EEndPlayReason::Type eEndPlayReason)
 {
   Super::EndPlay(eEndPlayReason);
-  m_pManager->removeObserver(&m_oGameNetMrg);
 }
 
 void ACarsGameModeBase::Tick(float DeltaSeconds)
 {
   Super::Tick(DeltaSeconds);
-  m_oGameNetMrg.Tick();
 }
 
 void ACarsGameModeBase::ChangeMenuWidget(TSubclassOf<UUserWidget> NewWidgetClass)
@@ -67,28 +64,13 @@ void ACarsGameModeBase::ChangeMenuWidget(TSubclassOf<UUserWidget> NewWidgetClass
 
 void ACarsGameModeBase::OnServerButtonClick(FString sPort)
 {
-  GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, *FString("Server"));
-
-  m_pManager->activateAsServer(FCString::Atoi(*sPort));
 }
 
 void ACarsGameModeBase::OnClientButtonClick(FString sIP, FString sPort)
 {
-  GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, *FString("Client"));
-
-  m_pManager->activateAsClient();
-  m_pManager->connectTo(TCHAR_TO_ANSI(*sIP), FCString::Atoi(*sPort));
 }
 
 void ACarsGameModeBase::OnServerStartButtonClick()
 {
-  GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, *FString("Server Start!"));
-  UGameplayStatics::OpenLevel(GetWorld(), "Circuit1");
-  CGameBuffer data;
-  NetMessageType iID = NetMessageType::LOAD_MAP;
-  data.write(iID);
-  const char* sLevel = "Circuit1";
-  data.write(sLevel);
-  m_pManager->send(data.getbuffer(), data.getSize());
 }
 

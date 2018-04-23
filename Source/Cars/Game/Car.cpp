@@ -30,6 +30,7 @@ ACar::ACar()
   SetActorScale3D(FVector(0.2f, 0.1f, 0.05f));
   SetActorRotation(FRotator(0.f, 270.f, 0.f));
   AutoPossessAI = EAutoPossessAI::Disabled;
+  AutoPossessPlayer = EAutoReceiveInput::Player0;
 }
 
 // Called when the game starts or when spawned
@@ -54,10 +55,13 @@ float ACar::GetVelocityMagnitude()
 // Called to bind functionality to input
 void ACar::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
-	Super::SetupPlayerInputComponent(PlayerInputComponent);
-  PlayerInputComponent->BindAxis("Move", this, &ACar::Move);
-  PlayerInputComponent->BindAxis("Turn", this, &ACar::Turn);
-
+  if (!m_bBind)
+  {
+    m_bBind = true;
+    Super::SetupPlayerInputComponent(PlayerInputComponent);
+    PlayerInputComponent->BindAxis("Move", this, &ACar::Move);
+    PlayerInputComponent->BindAxis("Turn", this, &ACar::Turn);
+  }
 }
 
 //Input functions

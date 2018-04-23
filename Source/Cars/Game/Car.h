@@ -40,4 +40,5 @@ protected:
   //Mesh
   UPROPERTY(EditAnywhere)
   UStaticMeshComponent* m_pMesh;
+  bool m_bBind = false;
 };
