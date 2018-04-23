@@ -36,9 +36,6 @@ void CGameNetMrg::dataPacketReceived(Net::CPaquete* packet)
     UGameplayStatics::OpenLevel(m_pController->GetWorld(), sMap);
     NetMessageType iID = NetMessageType::MAP_LOADED;
     m_pManager->send(&iID, sizeof(iID));
-    //ULevelStreaming* level = UGameplayStatics::GetStreamingLevel(m_pController->GetWorld(), sMap);
-    //ACar* pCar;
-    //level->OnLevelLoaded.AddDynamic(this, &AClass::OnLevelStreamLoaded);
   } break;
   case NetMessageType::MAP_LOADED:
   {
