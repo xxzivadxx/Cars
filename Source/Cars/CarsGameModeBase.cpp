@@ -45,8 +45,7 @@ void ACarsGameModeBase::EndPlay(EEndPlayReason::Type eEndPlayReason)
 void ACarsGameModeBase::Tick(float DeltaSeconds)
 {
   Super::Tick(DeltaSeconds);
-  if(CurrentWidget)
-    m_oGameNetMrg.Tick();
+  m_oGameNetMrg.Tick();
 }
 
 void ACarsGameModeBase::ChangeMenuWidget(TSubclassOf<UUserWidget> NewWidgetClass)

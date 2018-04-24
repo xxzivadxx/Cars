@@ -4,6 +4,7 @@
 
 #include "Net/buffer.h"
 #include "Math/Vector.h"
+#include "Math/Vector2D.h"
 
 enum class NetMessageType;
 /**
@@ -18,7 +19,9 @@ public:
   using Net::CBuffer::write;
   void write(NetMessageType data);
   void write(const FVector& data);
+  void write(const FVector2D& data);
   using Net::CBuffer::read;
   void read(NetMessageType& data);
   void read(FVector& data);
+  void read(FVector2D& data);
 };

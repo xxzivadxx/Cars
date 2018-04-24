@@ -53,7 +53,15 @@ void CGameNetMrg::dataPacketReceived(Net::CPaquete* packet)
         data.write(client.first);
         FVector vPos(220, -310.f + client.first * 40.f, 0.f);
         data.write(vPos);
-        m_pManager->send(data.getbuffer(), data.getSize());
+        FActorSpawnParameters SpawnInfo;
+        SpawnInfo.Name = FName("Car", client.first);
+        SpawnInfo.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+        ACar* pCar = m_pController->GetWorld()->SpawnActor<ACar>(vPos, FRotator::ZeroRotator, SpawnInfo);
+        if (pCar)
+        {
+          m_vPlayers[client.first] = pCar;
+          m_pManager->send(data.getbuffer(), data.getSize());
+        }
       }
     }
   } break;
@@ -85,6 +93,18 @@ void CGameNetMrg::dataPacketReceived(Net::CPaquete* packet)
       }
     }
   } break;
+  case NetMessageType::ACTOR_MSG:
+  {
+    unsigned int uClient;
+    data.read(uClient);
+    if (uClient != m_pManager->getID())
+    {
+      ACar* pCar = m_vPlayers.at(uClient);
+      FVector2D vInput;
+      data.read(vInput);
+      pCar->SetInput(vInput);
+    }
+  } break;
   default:
     break;
   }
@@ -108,4 +128,13 @@ void CGameNetMrg::disconnexionPacketReceived(Net::CPaquete* packet)
 void CGameNetMrg::Tick()
 {
   m_pManager->tick();
+}
+
+ACar* CGameNetMrg::GetOwnCar() const
+{
+  if (m_pManager && m_vPlayers.find(m_pManager->getID()) != m_vPlayers.end())
+  {
+    return m_vPlayers.at(m_pManager->getID());
+  }
+  return nullptr;
 }

@@ -7,6 +7,7 @@
 #include "Car.generated.h"
 
 class UCarMovementComponent;
+class UNetComponent;
 
 UCLASS()
 class CARS_API ACar : public APawn
@@ -23,6 +24,8 @@ public:
   // Velocity magnitude
   float GetVelocityMagnitude();
 
+  void SetInput(FVector2D _vInput) { m_vMovementInput = _vInput; }
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -37,7 +40,11 @@ protected:
   //Movement
   UPROPERTY(EditAnywhere)
   UCarMovementComponent* m_pCarMovement;
+  //Net
+  UPROPERTY(EditAnywhere)
+  UNetComponent* m_pNet;
   //Mesh
   UPROPERTY(EditAnywhere)
   UStaticMeshComponent* m_pMesh;
+  bool m_bBind = false;
 };

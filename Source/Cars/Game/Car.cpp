@@ -8,6 +8,7 @@
 #include "Components/BoxComponent.h"
 #include "ConstructorHelpers.h"
 #include "Kismet/GameplayStatics.h"
+#include "GameNet/NetComponent.h"
 
 
 // Sets default values
@@ -16,6 +17,7 @@ ACar::ACar()
  	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
   m_pCarMovement = CreateDefaultSubobject<UCarMovementComponent>(TEXT("CarMovement"));
+  m_pNet = CreateDefaultSubobject<UNetComponent>(TEXT("Net"));
   UBoxComponent* BoxComponent = CreateDefaultSubobject<UBoxComponent>(TEXT("RootComponent"));
   RootComponent = BoxComponent;
   m_pMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("VisualRepresentation"));
@@ -44,6 +46,7 @@ void ACar::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
   m_pCarMovement->SetInput(m_vMovementInput);
+  m_pNet->SetInput(m_vMovementInput);
 }
 
 float ACar::GetVelocityMagnitude()
@@ -54,10 +57,13 @@ float ACar::GetVelocityMagnitude()
 // Called to bind functionality to input
 void ACar::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
-	Super::SetupPlayerInputComponent(PlayerInputComponent);
-  PlayerInputComponent->BindAxis("Move", this, &ACar::Move);
-  PlayerInputComponent->BindAxis("Turn", this, &ACar::Turn);
-
+  if (!m_bBind)
+  {
+    m_bBind = true;
+    Super::SetupPlayerInputComponent(PlayerInputComponent);
+    PlayerInputComponent->BindAxis("Move", this, &ACar::Move);
+    PlayerInputComponent->BindAxis("Turn", this, &ACar::Turn);
+  }
 }
 
 //Input functions

@@ -14,6 +14,7 @@
 
 #include "buffer.h"
 #include "memory.h"
+#include "string.h"
 
 //#define DEBUG_BUFFER 1
 
@@ -58,9 +59,9 @@ namespace Net {
 
   void CBuffer::write(const char* data)
   {
-    size_t size = sizeof(data);
+    size_t size = strlen(data);
     write(size);
-    write(data, sizeof(data));
+    write(data, size);
   }
 
 	void CBuffer::read(void* data,size_t datalength)

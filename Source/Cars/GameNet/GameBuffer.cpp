@@ -23,6 +23,12 @@ void CGameBuffer::write(const FVector& data)
   write(data.Z);
 }
 
+void CGameBuffer::write(const FVector2D& data)
+{
+  write(data.X);
+  write(data.Y);
+}
+
 void CGameBuffer::read(NetMessageType& data)
 {
   read(&data, sizeof(data));
@@ -33,4 +39,10 @@ void CGameBuffer::read(FVector& data)
   read(data.X);
   read(data.Y);
   read(data.Z);
+}
+
+void CGameBuffer::read(FVector2D& data)
+{
+  read(data.X);
+  read(data.Y);
 }

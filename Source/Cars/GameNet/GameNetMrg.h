@@ -35,6 +35,9 @@ public:
   virtual void disconnexionPacketReceived(Net::CPaquete* packet);
 
   void Tick();
+
+  ACar* GetOwnCar() const;
+
 private:
   Net::CManager* m_pManager = nullptr;
   ACarsGameModeBase* m_pController;
